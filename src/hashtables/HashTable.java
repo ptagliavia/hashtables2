@@ -12,7 +12,7 @@ import java.util.Iterator;
  *
  * @param <T> the type of elements in the table
  */
-public class HashTable<T> implements IHashTable<T>
+public class HashTable<T> implements IHashTable<T>, Iterable<T>
 {
     //fields?
     private static final double LOAD_FACTOR = 0.6;
@@ -161,11 +161,6 @@ public class HashTable<T> implements IHashTable<T>
         return false;
     }
 
-    @Override
-    public Iterator<T> iterator()
-    {
-        return null;
-    }
 
     @Override
     public T get(T element)
@@ -192,6 +187,40 @@ public class HashTable<T> implements IHashTable<T>
 
         output += "]";
         return output;
+    }
+
+
+    public Iterator<T> iterator() {
+        return new HashIterator();
+    }
+
+
+    private class HashIterator implements Iterator<T> {
+
+        int current = 0;
+
+        /**
+         * Returns {@code true} if the iteration has more elements.
+         * (In other words, returns {@code true} if {@link #next} would
+         * return an element rather than throwing an exception.)
+         *
+         * @return {@code true} if the iteration has more elements
+         */
+        @Override
+        public boolean hasNext() {
+            return table[current]!= null;
+        }
+
+        /**
+         * Returns the next element in the iteration.
+         *
+         * @return the next element in the iteration
+         * @throws NoSuchElementException if the iteration has no more elements
+         */
+        @Override
+        public T next() {
+            return null;
+        }
     }
 
     private static class HashElement<T>
